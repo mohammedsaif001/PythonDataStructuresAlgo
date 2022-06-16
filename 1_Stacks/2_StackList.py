@@ -21,7 +21,7 @@ def isEmpty():
     if (len(stack) == 0):
         print("Stack is Empty")
     else:
-        print(f"Length of Stack is ", {len(stack)})
+        print("Not Empty")
 
 
 def peek():
@@ -34,7 +34,7 @@ def peek():
 n = int(input("Enter the length of Stack: "))
 while True:
     choice = int(input(
-        "\nEnter your Choice:\n1.Push\t2.Pop\t3.Last Element in Stack\t4.Check Length of Stack\t5.Quit\n"))
+        "\nEnter your Choice:\n1.Push\t2.Pop\t3.Peek\t4.Check isEmpty\t5.Quit\n"))
     if choice == 1:
         push()
     elif choice == 2:

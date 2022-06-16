@@ -1,0 +1,36 @@
+priorityQueue = []
+
+priorityQueue.append(10)
+print(priorityQueue)
+priorityQueue.append(70)
+print(priorityQueue)
+priorityQueue.append(710)
+print(priorityQueue)
+priorityQueue.append(4)
+print(priorityQueue)
+
+# print("Lower Element, Higher Priority")
+# priorityQueue.sort()
+# print("After Sorting", priorityQueue)
+
+# priorityQueue.pop(0)
+# print(priorityQueue)
+# priorityQueue.pop(0)
+# print(priorityQueue)
+# priorityQueue.pop(0)
+# print(priorityQueue)
+# priorityQueue.pop(0)
+# print(priorityQueue)
+
+print("Higher Element, Higher Priority")
+priorityQueue.sort(reverse=True)
+print("After Sorting", priorityQueue)
+
+priorityQueue.pop(0)
+print(priorityQueue)
+priorityQueue.pop(0)
+print(priorityQueue)
+priorityQueue.pop(0)
+print(priorityQueue)
+priorityQueue.pop(0)
+print(priorityQueue)

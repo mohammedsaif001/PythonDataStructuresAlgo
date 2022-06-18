@@ -90,6 +90,46 @@ class LinkedList:
         else:
             print("Linked List is Not Empty")
 
+    def deleteStart(self):
+        # Checking if LL is empty
+        if self.head is None:
+            print("Linked List is Empty, Can't Delete !!")
+            return
+        self.head = self.head.ref  # Changing head to 2nd Node
+
+    def deleteEnd(self):
+        # Checking if LL is empty
+        if self.head is None:
+            print("Linked List is Empty, Can't Delete !!")
+        elif self.head.ref is None:
+            self.head = None
+        else:
+            # Traverse Till Last Node
+            n = self.head
+            while n.ref.ref is not None:
+                n = n.ref
+            n.ref = None
+
+    def deleteValue(self, val):
+        # Checking if LL is empty
+        if self.head is None:
+            print("Linked List is Empty, Can't Delete !!")
+        # Checking if Node is in 1st Node
+        elif self.head.data is val:
+            self.head = self.head.ref
+        else:
+            # If Node is Anywhere in LL but 1st Node Traverse
+            n = self.head
+            while n.ref is not None:
+                if n.ref.data == val:
+                    break
+                else:
+                    n = n.ref
+            if n.ref is None:
+                print("Value not found in LL")
+            else:
+                n.ref = n.ref.ref
+
 
 ll1 = LinkedList()
 
@@ -119,4 +159,22 @@ print("\nInsertion in Between Before given Node")
 ll1.insertInBetween_BeforeNode(150, 100)
 ll1.printLinkedList()
 ll1.insertInBetween_BeforeNode(100, 7550)
+ll1.printLinkedList()
+
+print("\nDeleting First Node")
+ll1.deleteStart()
+ll1.printLinkedList()
+
+print("\nDeleting Last Node")
+ll1.deleteEnd()
+ll1.printLinkedList()
+ll1.deleteEnd()
+ll1.printLinkedList()
+
+print("\nDeleting Node by Value")
+ll1.deleteValue(20)
+ll1.deleteValue(100)
+ll1.deleteValue(10)
+ll1.printLinkedList()
+ll1.deleteValue(150)
 ll1.printLinkedList()

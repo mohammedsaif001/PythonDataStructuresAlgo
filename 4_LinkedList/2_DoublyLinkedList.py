@@ -115,6 +115,67 @@ class DoublyLinkedList:
                     self.head = newNode
                 n.pref = newNode
 
+    def deleteStart(self):
+        # Check if LL i Empty
+        if self.head is None:
+            print("Linked List is Empty")
+            return
+        # Check if LL has single Node
+        if self.head.nRef is None:
+            self.head = None
+            return
+        # Else Point Head to Second node & 2nd Node's pref to none
+        self.head = self.head.nRef
+        self.head.pRef = None
+
+    def deleteEnd(self):
+        # Check if LL i Empty
+        if self.head is None:
+            print("Linked List is Empty")
+            return
+        # Check if LL has single Node
+        if self.head.nRef is None:
+            self.head = None
+        else:
+            n = self.head
+            while n.nRef is not None:
+                n = n.nRef
+            # Removing chain from to Last Node
+            n.pRef.nRef = None
+
+    def deleteValue(self, val):
+        # Check if LL is Empty
+        if self.head is None:
+            print("Linked List is Empty")
+            return
+        # Check if LL contains one node
+        if self.head.nRef is None:
+            if self.head.data == val:
+                self.head = None
+            else:
+                print("Value not found in Linked List")
+            return
+        # Deleting First Node in a LL of many Nodes
+        if self.head.data == val:
+            self.head = self.head.nRef
+            self.head.pRef = None
+            return
+        # Deleting Somewhere in Between
+        n = self.head
+        while n.nRef is not None:
+            if val == n.data:
+                break
+            else:
+                n = n.nRef
+        if n.nRef is None:
+            if val == n.data:
+                n.pRef.nRef = None
+                return
+            print("Value Not Found")
+        else:
+            n.pRef.nRef = n.nRef
+            n.nRef.pRef = n.pRef
+
 
 dl1 = DoublyLinkedList()
 
@@ -158,4 +219,26 @@ print("\nPrinting in Forward Direction")
 dl1.printForward()
 dl1.insertBeforeNode(350, 30)
 print("\nPrinting in Forward Direction")
+dl1.printForward()
+dl1.printForward()
+
+print('\nDeleting Start')
+dl1.printForward()
+dl1.deleteStart()
+dl1.printForward()
+
+print('\nDeleting End')
+dl1.deleteEnd()
+dl1.printForward()
+dl1.deleteEnd()
+dl1.printForward()
+dl1.deleteEnd()
+dl1.printForward()
+
+print('\nDeleting Value')
+dl1.deleteValue(20)
+dl1.printForward()
+dl1.deleteValue(10)
+dl1.printForward()
+dl1.deleteValue(70)
 dl1.printForward()

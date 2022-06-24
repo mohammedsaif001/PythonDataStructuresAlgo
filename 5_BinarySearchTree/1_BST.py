@@ -1,10 +1,13 @@
+from requests import delete
+
+
 class BinarySearchTree:
     def __init__(self, key):
         self.key = key
         self.leftChild = None
         self.rightChild = None
 
-    def insert(self, data):
+    def insertNode(self, data):
         # Checking if BST isempty where 'root' is the obkject passed to self
         if self.key is None:
             self.key = data
@@ -15,7 +18,7 @@ class BinarySearchTree:
             # If lchild contains address (having subtree)
             if self.leftChild:
                 # Call insert function again until we dont find sub-tree and find proper value for the tree
-                self.leftChild.insert(data)
+                self.leftChild.insertNode(data)
             else:
                 # Inserting Data in Left child
                 self.leftChild = BinarySearchTree(data)
@@ -25,7 +28,7 @@ class BinarySearchTree:
             # If rchild contains address (having subtree)
             if self.rightChild:
                 # Call insert function again until we dont find sub-tree and find proper value for the tree
-                self.rightChild.insert(data)
+                self.rightChild.insertNode(data)
             else:
                 # Inserting Data in Right child
                 self.rightChild = BinarySearchTree(data)
@@ -109,11 +112,62 @@ class BinarySearchTree:
         # Printing Root
         print(self.key, end=" ")
 
+    def deleteNode(self, data):
+        # Check if BST is Empty
+        if self.key is None:
+            print("BST is Empty")
+            return
+
+        # If data is less than node value go to left subtree and find the position
+        if data < self.key:
+            # If left node/subtree is present
+            if self.leftChild:
+                self.leftChild = self.leftChild.deleteNode(data)
+            else:
+                print("Node Not Found")
+
+        # If data is more than node value go to right subtree and find the position
+        elif data > self.key:
+            # If right node/subtree is present
+            if self.rightChild:
+                self.rightChild = self.rightChild.deleteNode(data)
+            else:
+                print("Node Not Found")
+
+        # If data equals node value
+        else:
+            # Node may have 0,1, 2 subchilds
+
+            # If node contains only right subchild or 0
+            if self.leftChild is None:
+                temp = self.rightChild  # Storing Right Node in Temp
+                self = None     # Deleting the Value
+                return temp     # Connecting right node to parent node after deletion
+
+            # If node contains only left subchild or 0
+            if self.rightChild is None:
+                temp = self.leftChild  # Storing Left Node in Temp
+                self = None     # Deleting the Value
+                return temp     # Connecting left node to parent node after deletion
+
+            # If node contains both childs left & right
+            # Either we can take largest value if left subtree or lowest value in right subtree
+
+            # Choosing lowest value in right subtree
+            node = self.rightChild
+            while node.leftChild:
+                node = node.leftChild  # Iterate until you find lowest val
+            # Replace the node with lowest val
+            self.key = node.key
+            # Break the chain by delete node
+            self.rightChild = self.rightChild.deleteNode(node.key)
+        return self
+
 
 root = BinarySearchTree(10)
 list1 = [21, 10, 30, 5, 12, 25, 100, 3, 7]
 for data in list1:
-    root.insert(data)
+    root.insertNode(data)
 root.search(34)
 
 print("\nPre Order Traversal")
@@ -124,3 +178,8 @@ root.inOrderTraversal()
 
 print("\nPost Order Traversal")
 root.postOrderTraversal()
+
+print()
+print("Deleteing Node")
+root.deleteNode(25)
+root.inOrderTraversal()

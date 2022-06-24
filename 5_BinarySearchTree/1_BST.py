@@ -1,4 +1,8 @@
-from requests import delete
+def count(node):
+    if node is None:
+        return 0
+    # Total Nodes = left node/s + right node/s + 1(root)
+    return 1 + count(node.leftChild) + count(node.rightChild)
 
 
 class BinarySearchTree:
@@ -112,7 +116,7 @@ class BinarySearchTree:
         # Printing Root
         print(self.key, end=" ")
 
-    def deleteNode(self, data):
+    def deleteNode(self, data, rootNode):
         # Check if BST is Empty
         if self.key is None:
             print("BST is Empty")
@@ -122,7 +126,7 @@ class BinarySearchTree:
         if data < self.key:
             # If left node/subtree is present
             if self.leftChild:
-                self.leftChild = self.leftChild.deleteNode(data)
+                self.leftChild = self.leftChild.deleteNode(data, rootNode)
             else:
                 print("Node Not Found")
 
@@ -130,7 +134,7 @@ class BinarySearchTree:
         elif data > self.key:
             # If right node/subtree is present
             if self.rightChild:
-                self.rightChild = self.rightChild.deleteNode(data)
+                self.rightChild = self.rightChild.deleteNode(data, rootNode)
             else:
                 print("Node Not Found")
 
@@ -141,12 +145,31 @@ class BinarySearchTree:
             # If node contains only right subchild or 0
             if self.leftChild is None:
                 temp = self.rightChild  # Storing Right Node in Temp
+
+                # If node is Root Node
+                if self.key == rootNode:
+                    self.key = temp
+                    self.leftChild = temp.leftChild
+                    self.rightChild = temp.rightChild
+                    temp = None  # Deleting Right child after data is been copied
+
+                # Other than Root Node
                 self = None     # Deleting the Value
                 return temp     # Connecting right node to parent node after deletion
 
             # If node contains only left subchild or 0
             if self.rightChild is None:
                 temp = self.leftChild  # Storing Left Node in Temp
+
+                # If node is Root Node
+                if self.key == rootNode:
+                    self.key = temp
+                    self.leftChild = temp.leftChild
+                    self.rightChild = temp.rightChild
+                    temp = None  # Deleting left child after data is been copied
+
+                # Other than Root Node
+
                 self = None     # Deleting the Value
                 return temp     # Connecting left node to parent node after deletion
 
@@ -159,13 +182,29 @@ class BinarySearchTree:
                 node = node.leftChild  # Iterate until you find lowest val
             # Replace the node with lowest val
             self.key = node.key
-            # Break the chain by delete node
-            self.rightChild = self.rightChild.deleteNode(node.key)
+            # Break the chain by deleting node
+            self.rightChild = self.rightChild.deleteNode(node.key, rootNode)
         return self
+
+    def minNode(self):
+        if self.key is None:
+            print("BST is empty")
+            return
+        while self.leftChild:
+            self = self.leftChild
+        print("Min Node is ", self.key)
+
+    def maxNode(self):
+        if self.key is None:
+            print("BST is empty")
+            return
+        while self.rightChild:
+            self = self.rightChild
+        print("Max Node is ", self.key)
 
 
 root = BinarySearchTree(10)
-list1 = [21, 10, 30, 5, 12, 25, 100, 3, 7]
+list1 = [10, 15, 13, 20]
 for data in list1:
     root.insertNode(data)
 root.search(34)
@@ -180,6 +219,14 @@ print("\nPost Order Traversal")
 root.postOrderTraversal()
 
 print()
-print("Deleteing Node")
-root.deleteNode(25)
-root.inOrderTraversal()
+if count(root) > 1:
+    print("Deleteing Node")
+    root.deleteNode(10, root.key)
+    root.inOrderTraversal()
+else:
+    print("Can't delete as there is only 1 node")
+
+print()
+root.minNode()
+print()
+root.maxNode()

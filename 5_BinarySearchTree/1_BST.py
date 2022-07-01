@@ -190,6 +190,8 @@ class BinarySearchTree:
         if self.key is None:
             print("BST is empty")
             return
+
+        # Going until last node in left subtree
         while self.leftChild:
             self = self.leftChild
         print("Min Node is ", self.key)
@@ -198,6 +200,8 @@ class BinarySearchTree:
         if self.key is None:
             print("BST is empty")
             return
+
+        # Going until last node in right subtree
         while self.rightChild:
             self = self.rightChild
         print("Max Node is ", self.key)

@@ -1,6 +1,3 @@
-from operator import index
-
-
 def add_node(node):
     # Adding global because nodeCount is defined outside the function
     global nodeCount

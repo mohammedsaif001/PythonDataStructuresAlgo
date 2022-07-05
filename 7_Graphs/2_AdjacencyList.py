@@ -20,8 +20,7 @@ def add_edge_directed(node1, node2, cost=None):
         else:
             # Adding Adjacency nodes to dictionary
             # "A" : ["B"]
-            node1Connections = [node2]
-            graph[node1].append(node1Connections)
+            graph[node1].append(node2)
 
 
 def add_edge_undirected(node1, node2, cost=None):
@@ -36,10 +35,8 @@ def add_edge_undirected(node1, node2, cost=None):
             graph[node1].append(node1Connections)
             graph[node2].append(node2Connections)
         else:
-            node1Connections = [node2]
-            node2Connections = [node1]
-            graph[node1].append(node1Connections)
-            graph[node2].append(node2Connections)
+            graph[node1].append(node2)
+            graph[node2].append(node1)
 
 
 def delete_node(node, cost=None):
